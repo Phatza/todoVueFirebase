@@ -21,6 +21,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: ['iview'],
     /*
     ** Run ESLINT on save
     */
@@ -34,5 +35,8 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  plugins: [
+    { src : '~/plugins/iview.js', ssr: false }
+  ]
 }
