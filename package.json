@@ -5,6 +5,7 @@
   "author": "Brice HPC",
   "private": true,
   "dependencies": {
+    "iview": "^2.0.0-rc.18",
     "nuxt": "latest"
   },
   "scripts": {

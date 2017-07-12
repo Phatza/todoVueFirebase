@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'starter',
+    title: '%s - Todolist application using VueJS 2 & Firebase',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -21,6 +21,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: ['iview'],
     /*
     ** Run ESLINT on save
     */
@@ -34,5 +35,8 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  plugins: [
+    { src : '~/plugins/iview.js', ssr: false }
+  ]
 }
