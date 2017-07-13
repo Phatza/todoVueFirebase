@@ -37,6 +37,7 @@ module.exports = {
     }
   },
   plugins: [
-    { src : '~/plugins/iview.js', ssr: false }
-  ]
+    { src : '~/plugins/iview.js', ssr: true }
+  ],
+  css: ['iview/dist/styles/iview.css']
 }
