@@ -4,48 +4,57 @@
       <Col :xs="24" :md="8">
         <h3>TO DO</h3>
         <Row type="flex" justify="space-around" v-if="''!== todolist" v-for="todo in todolist">
-          <Col span="12">
+          <Col span="12" v-if="todo.todo">
             <p span="12">{{ todo.task }}</p>
           </Col>
-          <Col span="12">
+          <Col span="12" v-if="todo.todo">
             <taskSettings
               span="12"
-              :task="todo.task"
-              :todo="todo"
-              @toProceed="proceed(todo)"
-              @toDone="done(todo)"
-              @removeTodo="remove(todo.task)">
+              :task="todo"
+              @toProceed="proceed(todolist.indexOf(todo))"
+              @toDone="done(todolist.indexOf(todo))"
+              @removeTask="remove(todolist.indexOf(todo))">
             </taskSettings>
           </Col>
         </Row>
       </Col>
       <Col :xs="24" :md="8">
-        <h3>IN PROGRESS</h3>
-        <Row type="flex" justify="space-around" v-if="true === todolist.proceed" v-for="todo in todolist">
-          <Col span="12">
+        <h3>PROCEED</h3>
+        <Row type="flex" justify="space-around" v-for="todo in todolist">
+          <Col v-if="todo.proceed" span="12">
             <p span="12">{{ todo.task }}</p>
           </Col>
-          <Col span="12">
-            <taskSettings span="12" :task="todo.task" :todolist="todolist" @removeTodo="remove(todo.task)"></taskSettings>
+          <Col v-if="todo.proceed" span="12">
+            <taskSettings
+              span="12"
+              :task="todo"
+              @toDone="done(todolist.indexOf(todo))"
+              @removeTask="remove(todolist.indexOf(todo))">
+            </taskSettings>
           </Col>
         </Row>
       </Col>
       <Col :xs="24" :md="8">
         <h3>DONE</h3>
-        <Row type="flex" justify="space-around" v-if="true === todolist.done" v-for="todo in todolist">
-          <Col span="12">
+        <Row type="flex" justify="space-around" v-for="todo in todolist">
+          <Col span="12" v-if="todo.done">
             <p span="12">{{ todo.task }}</p>
           </Col>
-          <Col span="12">
-            <taskSettings span="12" :task="todo.task" :todolist="todolist" @removeTodo="remove(todo.task)"></taskSettings>
+          <Col span="12" v-if="todo.done">
+            <taskSettings
+              span="12"
+              :task="todo"
+              @toProceed="proceed(todolist.indexOf(todo))"
+              @removeTask="remove(todolist.indexOf(todo))">
+            </taskSettings>
           </Col>
         </Row>
       </Col>
     </Row>
     <Row type="flex" justify="center" align="middle">
       <Col span="24">
-        <Input v-model="task" placeholder="Ajouter une tache"></Input>
-        <Button type="primary" size="large" icon="plus" @click="add(task)">add task</Button>
+        <Input v-model="taskField" placeholder="Ajouter une tache"></Input>
+        <Button type="primary" size="large" icon="plus" @click="add(taskField)">add task</Button>
       </Col>
     </Row>
   </div>
@@ -58,7 +67,7 @@
   export default {
     data () {
       return {
-        task: ''
+        taskField: ''
       }
     },
     computed: {
@@ -77,29 +86,25 @@
       ...mapActions({
         addTodo: 'add',
         removeTodo: 'remove',
-        isTodo: 'isTodo',
         isProceed: 'isProceed',
         isDone: 'isDone'
       }),
       add (task) {
-        if (this.task === '') {
+        if (this.taskField === '') {
           return this.$Message.error('Task\'s field cannot be empty')
         } else {
-          this.addTodo(this.task)
-          this.task = ''
+          this.addTodo(task)
+          this.taskField = ''
         }
       },
-      remove (task) {
-        this.removeTodo(this.task)
+      remove (taskID) {
+        this.removeTodo(taskID)
       },
-      todo (task) {
-        this.isTodo(this.task)
+      proceed (taskID) {
+        this.isProceed(taskID)
       },
-      proceed (task) {
-        this.isProceed(this.task)
-      },
-      done (task) {
-        this.isDone(this.task)
+      done (taskID) {
+        this.isDone(taskID)
       }
     },
     components: {

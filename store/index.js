@@ -17,23 +17,18 @@ const store = () => new Vuex.Store({
         done: false
       })
     },
-    remove (state, { task }) {
-      state.todolist.splice(state.todolist.indexOf(task), 1)
+    remove (state, taskID) {
+      state.todolist.splice(taskID, 1)
     },
-    isTodo (state, { task }) {
-      state.todolist.indexOf(task).todo = true
-      state.todolist.indexOf(task).proceed = false
-      state.todolist.indexOf(task).done = false
+    isProceed (state, taskID) {
+      state.todolist[taskID].todo = false
+      state.todolist[taskID].proceed = true
+      state.todolist[taskID].done = false
     },
-    isProceed (state, { task }) {
-      state.todolist.indexOf(task).todo = false
-      state.todolist.indexOf(task).proceed = true
-      state.todolist.indexOf(task).done = false
-    },
-    isDone (state, { task }) {
-      state.todolist.indexOf(task).todo = false
-      state.todolist.indexOf(task).proceed = false
-      state.todolist.indexOf(task).done = true
+    isDone (state, taskID) {
+      state.todolist[taskID].todo = false
+      state.todolist[taskID].proceed = false
+      state.todolist[taskID].done = true
     }
   },
   actions: {
@@ -42,9 +37,6 @@ const store = () => new Vuex.Store({
     },
     remove ({ commit }, task) {
       commit('remove', task)
-    },
-    isTodo ({ commit }, task) {
-      commit('isTodo', task)
     },
     isProceed ({ commit }, task) {
       commit('isProceed', task)
