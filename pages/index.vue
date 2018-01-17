@@ -3,7 +3,6 @@
     <Row type="flex" justify="center" align="middle">
       <Col span="24">
         <img src="http://placehold.it/250/250" alt="">
-        <img src="http://placehold.it/250/250" alt="">
       </Col>
     </Row>
     <Row type="flex" justify="center" align="middle">
